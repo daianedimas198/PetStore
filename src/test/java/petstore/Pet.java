@@ -4,8 +4,9 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.contains;
 
 public class Pet {
    //Atributos
@@ -19,7 +20,7 @@ public class Pet {
     //Put
     @Test //Identifica o método ou função como um teste para o TestNG
     public void incluirPet() throws IOException{
-        String jsonBody  =lerJson("dados/pet1.json");
+        String jsonBody = lerJson("dados/pet1.json");
 
         //Sintaxe Gherkin
         // Dado - Quando- Então
@@ -33,7 +34,11 @@ public class Pet {
             .post(url)
         .then()
             .log().all()
-            .statusCode(200);
+            .statusCode(200)
+            .body("name", is("Snoopy"))
+            .body("status", is("available"))
+            .body("category.name", is("dog"))
+            .body("tags.name", contains("sta"));
     }
 
 }
