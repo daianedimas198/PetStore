@@ -34,7 +34,7 @@ public class Pet {
             .post(url)
         .then()
             .log().all()
-            .statusCode(200)
+            .statusCode(200) //verifica o código  retornado se é o passado, abaixo valida os asserts
             .body("name", is("Snoopy"))
             .body("status", is("available"))
             .body("category.name", is("dog"))
