@@ -1,5 +1,6 @@
 package petstore;
 
+import javafx.scene.layout.Priority;
 import org.testng.annotations.Test;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -63,6 +64,39 @@ public class Pet {
                 .path("category.name")
                 ;
      System.out.println("O  token é: "+ token);
+    }
 
- }
+    @Test (priority = 2)
+    public void alterarPet() throws IOException {
+        String jsonBody = lerJson("dados/pet2.json");
+        given()
+                .contentType("application/json")
+                .log().all()
+                .body(jsonBody)
+        .when()
+                .put(uri)
+        .then()
+                .log().all()
+                .statusCode(200)
+                .body("name", is("Flor"))
+                .body("status",is ("sold"))
+                ;
+    }
+    @Test (priority = 3)
+    public  void  excluirPet(){
+        String petId = "9222968140497182000";
+
+        given()
+                .contentType("application/json")
+                .log().all()
+        .when()
+                 .delete(uri + "/" + petId)
+        .then()
+                .log().all()
+                .statusCode(200)
+        .body("code", is(200))
+        .body("type", is("unknown"))
+        .body("message",is (petId))
+                ;
+    }
 }
