@@ -12,20 +12,20 @@ import static org.hamcrest.Matchers.contains;
 
 public class Pet {
    //Atributos
-    String uri = "https://petstore.swagger.io/v2/pet"; //endereÃ§o da entidade pet
+    String uri = "https://petstore.swagger.io/v2/pet"; //endereço da entidade pet
 
-    //MÃ©todos e FunÃ§Ãµes
+    //Métodos e Funções
     public String  lerJson(String caminhoJson) throws IOException {
     return new String(Files.readAllBytes(Paths.get(caminhoJson)));
     }
 
     //Put
-    @Test //Identifica o mÃ©todo ou funÃ§Ã£o como um teste para o TestNG
+    @Test (priority = 0) //Identifica o método ou função como um teste para o TestNG
     public void incluirPet() throws IOException{
         String jsonBody = lerJson("dados/pet1.json");
 
         //Sintaxe Gherkin
-        // Dado - Quando- EntÃ£o
+        // Dado - Quando- Então
         //Given - When - Then
 
         given()
@@ -36,15 +36,16 @@ public class Pet {
             .post(uri)
         .then()
             .log().all()
-            .statusCode(200) //verifica o cÃ³digo  retornado se Ã© o passado, abaixo valida os asserts
+            .statusCode(200) //verifica o código  retornado se é o passado, abaixo valida os asserts
             .body("name", is("Flor"))
             .body("status", is("available"))
-            .body("category.name", is("dog"))
-            .body("tags.name", contains("sta"));
+            .body("category.name", is("tokenDAI29"))
+            .body("tags.name", contains("data"));
     }
- @Test
+ @Test (priority = 1)
     public void consultaPet(){
         String petID = "9222968140497182000";
+        String token =
 
         given()
                 .contentType("application/json")
@@ -55,9 +56,13 @@ public class Pet {
                 .log().all()
                 .statusCode(200)
                 .body("name", is("Flor"))
-                .body("category.name", is("dog"))
+                .body("category.name", is("tokenDAI29"))
                 .body("status", is("available"))
 
-        ;
+                .extract()
+                .path("category.name")
+                ;
+     System.out.println("O  token é: "+ token);
+
  }
 }

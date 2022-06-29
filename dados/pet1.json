@@ -2,7 +2,7 @@
   "id": 9222968140497182000,
   "category": {
     "id": 1,
-    "name": "dog"
+    "name": "tokenDAI29"
   },
   "name": "Flor",
   "photoUrls": [
@@ -10,8 +10,8 @@
   ],
   "tags": [
     {
-      "id": 2022,
-      "name": "sta"
+      "id": 2022029,
+      "name": "data"
     }
   ],
   "status": "available"
